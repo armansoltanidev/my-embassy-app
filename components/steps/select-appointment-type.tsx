@@ -18,70 +18,81 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
+import { useFormStore } from "@/lib/store";
 
 const skinTypeSchema = z.object({
-  skinType: z.enum(["PASSPORT", "AMAYESH_CARD", "COMBINATION", "SENSITIVE"], {
-    required_error: "Please select your skin type",
-  }),
+  appointmentType: z.enum(
+    [
+      "ASSERTION_OF_IDENTITY",
+      "MARRIAGE_CERTIFICATE",
+      "HAJ_ZAIARAT",
+      "EXIT_ENTRY_DOCUMENT",
+    ],
+    {
+      required_error: "Please select your skin type",
+    }
+  ),
 });
 
 type SkinTypeForm = z.infer<typeof skinTypeSchema>;
 
-function SkinTypeStep({ step }: { step: number }) {
-  const { form, handleBack, handleNext, handleNextOveride } = useFormStep({
+function AppointmentTypeStep({ step }: { step: number }) {
+  const { form, handleBack, handleNextOveride } = useFormStep({
     schema: skinTypeSchema,
     currentStep: step,
   });
 
+  const { resetForm, setCurrentStep } = useFormStore();
+
   const customHandleSubmit = (data: SkinTypeForm) => {
-    if (data.skinType === "SENSITIVE") {
-      handleNextOveride(data, 3);
-    } else {
-      handleNext(data);
-    }
+    handleNextOveride(data, 3);
+  };
+
+  const handleReset = () => {
+    resetForm();
+    setCurrentStep(2);
   };
 
   const skinTypes = [
     {
-      value: "SENSITIVE",
+      value: "HAJ_ZAIARAT",
       title: "حج و زیارت",
       description: "ثبت نام جهت سفر به خانه خدا و فریضه حج را دارم",
-      features: ["Easily irritated", "Prone to redness", "Reacts to products"],
+      features: ["تمکن مالی", "گواهی سلامت جسمانی", "پاسپورت معتبر"],
       imageSrc:
         "https://salahtravels.com/wp-content/uploads/2024/10/360_F_772737909_q1NFxcMO11rxc1Ldh5iZpg3130Bg4aXa.jpg",
     },
 
     {
-      value: "AMAYESH_CARD",
+      value: "MARRIAGE_CERTIFICATE",
       title: "عقدنامه",
       description: "درخواست عقدنامه سفارتی جهت اثبات زوجیت دارم",
-      features: ["Rough texture", "Feels tight", "Occasional redness"],
+      features: ["مدارک اقامتی زوجین", "دو نفر شاهد مرد", "تکمیل فرم درخواست "],
       imageSrc:
         "https://mohajer.news/wp-content/uploads/2023/06/nekah-khat-771x1024.jpg.webp",
     },
     {
-      value: "PASSPORT",
+      value: "EXIT_ENTRY_DOCUMENT",
+      title: "سند رفت و برگشت",
+      description: "دانشجو هستم و درخواست سفر رفت و برگشت به افغانستان را دارم",
+      features: ["کارت یا برگه دانشجویی", "مدرک اقامتی", "تذکره اقارب شما"],
+      imageSrc:
+        "https://ik.imagekit.io/tvlk/blog/2023/08/shutterstock_1974139034.jpg",
+    },
+    {
+      value: "ASSERTION_OF_IDENTITY",
       title: "تثبیت هویت",
       description: "درخواست تثبیت هویت جهت ارائه به مراجع قانونی دارم",
       features: ["کارت آمایش", "پاسپورت", "تذکره الکترونیکی یا کاغذی"],
       imageSrc:
-        "https://ensoulclinic.b-cdn.net/wp-content/uploads/2022/11/oily_skin_woman_makeup_greasy.png",
-    },
-    {
-      value: "COMBINATION",
-      title: "سند رفت و برگشت",
-      description:
-        "دانشجو هستم و درخواست سفر رفت و. برگشت به افغانستان را دارم",
-      features: ["Oily T-zone", "Dry cheeks", "Variable pore size"],
-      imageSrc:
-        "https://drdennisgross.com/cdn/shop/articles/A_Guide_to_Skincare_for_Combination_Skin.png",
+        "https://www.entrust.com/sites/default/files/2025-03/kyc-header.png",
     },
   ];
 
   return (
     <Card className="border-none shadow-none w-full max-w-[95%] sm:max-w-6xl mx-auto">
-      <CardHeader className="text-left md:text-center p-4 sm:p-6 animate-in slide-in-from-top duration-700">
-        <CardTitle className="text-4xl font-bold">
+      <CardHeader className="text-center md:text-center p-4 sm:p-6 animate-in slide-in-from-top duration-700">
+        <CardTitle className="text-2xl md:text-4xl font-bold">
           لطفا نوع نوبت درخواستی خود را انتخاب کنید.
         </CardTitle>
         <CardDescription className="text-base sm:text-lg mt-2">
@@ -96,12 +107,13 @@ function SkinTypeStep({ step }: { step: number }) {
           >
             <FormField
               control={form.control}
-              name="skinType"
+              name="appointmentType"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
+                      onClick={handleReset}
                       defaultValue={field.value}
                       className="grid gap-10 sm:gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
                     >
@@ -176,23 +188,23 @@ function SkinTypeStep({ step }: { step: number }) {
                                     <li
                                       key={index}
                                       className={cn(
-                                        "text-xs sm:text-sm flex items-center transition-all duration-300",
+                                        "text-xs sm:text-sm justify-end flex items-center transition-all duration-300 text-right",
                                         field.value === type.value
                                           ? "text-primary font-medium translate-x-2"
                                           : "text-gray-600 hover:translate-x-1"
                                       )}
                                     >
+                                      <span className="line-clamp-1">
+                                        {feature}
+                                      </span>
                                       <span
                                         className={cn(
-                                          "w-1.5 h-1.5 rounded-full mr-2 flex-shrink-0 transition-all duration-300",
+                                          "w-1.5 h-1.5 rounded-full ml-2 flex-shrink-0 transition-all duration-150",
                                           field.value === type.value
                                             ? "bg-primary scale-150"
                                             : "bg-gray-300"
                                         )}
                                       />
-                                      <span className="line-clamp-1">
-                                        {feature}
-                                      </span>
                                     </li>
                                   ))}
                                 </ul>
@@ -212,7 +224,7 @@ function SkinTypeStep({ step }: { step: number }) {
               <Button type="button" variant="outline" onClick={handleBack} back>
                 بازگشت
               </Button>
-              <Button type="submit" disabled={!form.watch("skinType")} front>
+              <Button type="submit" front>
                 ادامه
               </Button>
             </div>
@@ -223,4 +235,4 @@ function SkinTypeStep({ step }: { step: number }) {
   );
 }
 
-export default SkinTypeStep;
+export default AppointmentTypeStep;

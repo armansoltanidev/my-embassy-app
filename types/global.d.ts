@@ -1,25 +1,51 @@
 export type SkincareFormData = {
-  skinType?: "OILY" | "DRY" | "COMBINATION" | "SENSITIVE"
-  skinGoal?: "ANTI_AGING" | "ACNE" | "HYDRATION" | "EVEN_TONE"
-  acneType?: "HORMONAL" | "STRESS" | "CONGESTION"
-  sunExposure?: "RARE" | "MODERATE" | "FREQUENT"
-  climateType?: "ARID" | "HUMID" | "URBAN"
-  exfoliationFrequency?: "NEVER" | "WEEKLY" | "DAILY"
-  exfoliationType?: "PHYSICAL_SCRUBS" | "CHEMICAL_EXFOLIANTS" | "ENZYME_EXFOLIATORS"
-  ageGroup?: "TWENTIES" | "THIRTIES" | "FORTIES" | "FIFTIES" | "SIXTIES_PLUS"
-  blacklistedIngredients?: string[]
-  texturePreference?: "LIGHTWEIGHT" | "RICH" | "NO_PREFERENCE"
-  packagingPreference?: "ECO_REFILL" | "AIRLESS_PUMP" | "STANDARD"
-  makeupTypes?: ("FOUNDATION" | "CONCEALER" | "BLUSH" | "EYESHADOW" | "EYELINER" | "MASCARA" | "LIPSTICK" | "LIP_GLOSS" | "LIP_STAIN")[]
-  makeupFrequency?: 'DAILY' | 'FEW_TIMES_WEEK' | 'WEEKENDS_ONLY' | 'SPECIAL_OCCASIONS'
-  ethicalPreferences?: ("NONE"|"CRUELTY_FREE" | "VEGAN" | "SUSTAINABLE_PACKAGING" | "REEF_SAFE" | "PALM_OIL_FREE")[]
-  stressLevels?: "LOW" | "MEDIUM" | "HIGH"
-  sleepPatterns?: "LESS_THAN_6_HRS" | "6_TO_8_HRS" | "MORE_THAN_8_HRS"
-  preferredIngredients?: ("HYALURONIC_ACID" | "VITAMIN_C" | "NIACINAMIDE" | "CERAMIDES" | "PEPTIDES" | "PANTHENOL" | "CENTELLA_ASIATICA")[]
-  wearsMakeup?: boolean,
-  avoidedIngredients?: ("PARABENS" | "SILICONES" | "MINERAL_OIL" | "ESSENTIAL_OILS")[]
-  routineComplexity?: "LOW" | "MEDIUM" | "HIGH"
-  monthlyBudget?: "LOW" | "MID_RANGE" | "LUXURY"
-  hasPreferencesEthical?: boolean
-  sustainabilityPriorities?: ("CRUELTY_FREE" | "RECYCLABLE" | "VEGAN")[]
+  appointmentType?: "ASSERTION_OF_IDENTITY" | "MARRIAGE_CERTIFICATE" | "HAJ_ZAIARAT" | "EXIT_ENTRY_DOCUMENT"
+  residentType?:  "RESIDENT_BOOK" | "PASSPORT" | "AMAYESH_CARD" | "FAMILIY_PASSPORT"
+  
+  // Document form fields - Common
+  firstName?: string
+  lastName?: string
+  fatherName?: string
+  phoneNumber?: string
+  
+  // EXIT_ENTRY_DOCUMENT specific fields
+  // Personal information - Persian
+  grandFatherName?: string
+  
+  // Personal information - Latin
+  // These field names match what's used in the form component
+  firstNameLatin?: string  // Used in form as firstNameLatin
+  lastNameLatin?: string   // Used in form as lastNameLatin
+  fatherNameLatin?: string // Used in form as fatherNameLatin
+  grandFatherNameLatin?: string // Used in form as grandFatherNameLatin
+  
+  // Document information
+  documentNumber?: string  // Used in form as documentNumber
+  birthDate?: Date
+  gender?: "MALE" | "FEMALE"
+  
+  // Status information
+  maritalStatus?: "SINGLE" | "MARRIED" | "DIVORCED" | "WIDOWED"
+  
+  // Address information
+  mainProvince?: string
+  mainDistrict?: string
+  mainVillage?: string
+  
+  // Relative information
+  relativeType?: "UNCLE" | "AUNT" | "FATHER"
+  relativeIdType?: "ELECTRONIC" | "PAPER" | "BOOKLET"
+  relativeIdNumber?: string
+  relativePhoneNumber?: string
+  relativeIdCardType?: "ELECTRONIC" | "PAPER" | "BOOKLET"
+  relativeIdCardNumber?: string
+  
+  // Educational information
+  universityType?: "AZAD_ISLAMIC" | "GOVERNMENT_UNIVERSITY" | "PAYAM_NOOR"
+  majorName?: "SOFTWARE_ENGINEERING" | "MECHANIC_ENGINEERING" | "MEDICINE" | "OTHER"
+  degree?: "ASSOCIATE" | "BACHELOR" | "MASTERDEGREE" | "PHD"
+  universityName?: string
+  universityEntryYear?: string
+  studentId?: string
+  semester?: string
 }

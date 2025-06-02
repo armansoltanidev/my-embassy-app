@@ -21,7 +21,7 @@ export function SkincareSummarySheet({ data }: SkincareSummarySheetProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button>View Text Summary</Button>
+        <Button>مشاهده اطلاعات ثبت شده</Button>
       </SheetTrigger>
       <SheetContent className="w-[90vw] sm:max-w-[600px]">
         <SheetHeader>

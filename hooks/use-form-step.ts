@@ -23,18 +23,35 @@ export function useFormStep<T extends FieldValues>({
   });
 
   const handleNext = (data: T) => {
-    setFormData(data);
+    // Get the current form data from the store to ensure we don't lose any fields
+    const currentFormData = getLatestState().formData;
+    
+    // Merge the current form data with the new data
+    // This ensures we preserve all fields, including relative data fields
+    setFormData({ ...currentFormData, ...data });
     setCurrentStep(currentStep + 1);
   };
 
   const handleNextOveride = (data: T, overideStep?: number) => {
-    setFormData(data);
+    // Get the current form data from the store to ensure we don't lose any fields
+    const currentFormData = getLatestState().formData;
+    
+    // Merge the current form data with the new data
+    // This ensures we preserve all fields, including relative data fields
+    setFormData({ ...currentFormData, ...data });
     setCurrentStep(overideStep || currentStep + 1);
   };
 
   const handleBack = () => {
+    // Get the current form values
     const currentValues = form.getValues();
-    setFormData(currentValues);
+    
+    // Get the current form data from the store to ensure we don't lose any fields
+    const currentFormData = getLatestState().formData;
+    
+    // Merge the current form data with the new data
+    // This ensures we preserve all fields, including relative data fields
+    setFormData({ ...currentFormData, ...currentValues });
     setCurrentStep(currentStep - 1);
   };
 

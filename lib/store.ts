@@ -35,7 +35,7 @@ export const useFormStore = create<FormState>()(
     (set, get) => ({
       currentStep: 1,
       formData: {
-        skinType: "OILY",
+        appointmentType: "ASSERTION_OF_IDENTITY",
       },
       setCurrentStep: (step) => set({ currentStep: step }),
       setFormData: (data) =>
@@ -54,6 +54,13 @@ export const useFormStore = create<FormState>()(
     }),
     {
       name: "form-storage",
+      // Ensure all fields are properly serialized and stored
+      partialize: (state) => ({
+        currentStep: state.currentStep,
+        formData: state.formData,
+        formId: state.formId,
+        pdfUrl: state.pdfUrl,
+      }),
     }
   )
 );

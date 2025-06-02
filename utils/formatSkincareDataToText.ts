@@ -10,53 +10,31 @@ export const formatSkincareDataToText = (data: SkincareFormData): string => {
 
   // Basic Skin Profile
   const basicProfile = [
-    `Skin Type: ${data.skinType}`,
-    `Age Group: ${data.ageGroup === "TWENTIES" ? "20s" : 
-                 data.ageGroup === "THIRTIES" ? "30s" : 
-                 data.ageGroup === "FORTIES" ? "40s" : 
-                 data.ageGroup === "FIFTIES" ? "50s" : "60s+"}`,
-    `Skin Goals: ${data.skinGoal}`,
-    `Makeup Usage: ${data.wearsMakeup ? data.makeupFrequency : 'No makeup'}`,
-    data.makeupTypes ? `Makeup Types: ${data.makeupTypes.join(', ')}` : '',
+    `Appointment Type: ${data.appointmentType}`,
+    `Resident Type: ${data.residentType}`,
   ].filter(Boolean).join('\n');
   
   sections.push(formatSection('BASIC SKIN PROFILE', basicProfile));
 
-  // Environmental Factors
-  const environmental = [
-    `Daily Sun Exposure: ${data.sunExposure === "RARE" ? "Rare" : 
-                          data.sunExposure === "MODERATE" ? "Moderate" : "Frequent"}`,
-    `Climate Type: ${data.climateType}`,
-  ].join('\n');
-  
-  sections.push(formatSection('ENVIRONMENTAL FACTORS', environmental));
-
-  // Lifestyle & Health
-  const lifestyle = [
-    `Stress Level: ${data.stressLevels}/10`,
-    `Sleep Duration: ${data.sleepPatterns === "LESS_THAN_6_HRS" ? "Less than 6 hours" : 
-                      data.sleepPatterns === "6_TO_8_HRS" ? "6-8 hours" : "More than 8 hours"}`,
-  ].join('\n');
-  
-  sections.push(formatSection('LIFESTYLE & HEALTH', lifestyle));
-
-  // Budget & Preferences
-  const budget = [
-    `Monthly Budget: $${data.monthlyBudget === "LOW" ? "50" : 
-                        data.monthlyBudget === "MID_RANGE" ? "150" : "200"}`,
-    data.hasPreferencesEthical && data.ethicalPreferences ? 
-      `Ethical Preferences: ${data.ethicalPreferences.map(pref => 
-        pref === "CRUELTY_FREE" ? "Cruelty Free" :
-        pref === "VEGAN" ? "Vegan" :
-        pref === "SUSTAINABLE_PACKAGING" ? "Sustainable Packaging" :
-        pref === "REEF_SAFE" ? "Reef Safe" :
-        pref === "PALM_OIL_FREE" ? "Palm Oil Free" : pref
-      ).join(', ')}` : '',
-  ].filter(Boolean).join('\n');
-  
-  sections.push(formatSection('BUDGET & PREFERENCES', budget));
-
-
+  // Document Information (if applicable)
+  if (["RESIDENT_BOOK", "PASSPORT", "AMAYESH_CARD", "FAMILIY_PASSPORT"].includes(data.residentType as string)) {
+    const personalInfo = [
+      data.firstName ? `First Name: ${data.firstName}` : '',
+      data.lastName ? `Last Name: ${data.lastName}` : '',
+      data.fatherName ? `Father's Name: ${data.fatherName}` : '',
+      data.phoneNumber ? `Phone Number: ${data.phoneNumber}` : '',
+      data.relativeIdNumber ? `Phone Number: ${data.relativeIdNumber}` : '',
+      data.residentType === "RESIDENT_BOOK" && data.bookNumber ? `Book Number: ${data.bookNumber}` : '',
+      data.residentType === "PASSPORT" && data.passportNumber ? `Passport Number: ${data.passportNumber}` : '',
+      data.residentType === "AMAYESH_CARD" && data.cardNumber ? `Card Number: ${data.cardNumber}` : '',
+      data.residentType === "FAMILIY_PASSPORT" && data.passportNumber ? `Passport Number: ${data.passportNumber}` : '',
+      data.residentType === "FAMILIY_PASSPORT" && data.familyMembers ? `Family Members: ${data.familyMembers}` : '',
+    ].filter(Boolean).join('\n');
+    
+    if (personalInfo) {
+      sections.push(formatSection('PERSONAL INFORMATION', personalInfo));
+    }
+  }
 
   // Add timestamp
   const timestamp = `Generated on: ${new Date().toLocaleString()}`;

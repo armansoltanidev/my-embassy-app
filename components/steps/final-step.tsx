@@ -4,9 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useFormStep } from "@/hooks/use-form-step"
 import { z } from "zod"
 
-import LeadForm from "../lead-form"
 import SkincareSummary from "../skincare-summary"
-import DeveloperProfile from "../developer-profile"
 import { SkincareSummarySheet } from "../skincare-sheet"
 
 
@@ -31,9 +29,9 @@ function FinalStep({step}: {step: number}) {
     <div className="space-y-6 p-4">
       <Card className="border-none shadow-none">
         <CardHeader>
-          <CardTitle>Review Your Complete Skincare Profile</CardTitle>
+          <CardTitle>لطفا اطلاعات وارد شده خود را بررسی و در صورت تایید گزینه اتمام ثبت نام را فشار دهید</CardTitle>
           <CardDescription>
-            Please review all the information you've provided. You can edit or start over.
+            با کلیک بر روی بازگشت میتوانید اطلاعات وارد شده خود را ویرایش کنید پس از کلیک بر روی اتمام ثبت نام امکان تغییر اطلاعات وجود ندارد.
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
@@ -41,15 +39,13 @@ function FinalStep({step}: {step: number}) {
             <SkincareSummarySheet data={formData} />
           </div>
           <SkincareSummary data={formData}></SkincareSummary>
-          <LeadForm></LeadForm>
-          <DeveloperProfile></DeveloperProfile>           
 
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button back variant="outline" onClick={handleBack}>
-            Back
+            بازگشت
           </Button>
-          <Button onClick={handleReset}>Start Over</Button>
+          <Button onClick={handleReset}>شروع دوباره</Button>
         </CardFooter>
       </Card>
     </div>
