@@ -6,7 +6,6 @@ import {
   DatePicker,
   Dialog,
   Group,
-  Label,
   Popover,
 } from "react-aria-components"
 

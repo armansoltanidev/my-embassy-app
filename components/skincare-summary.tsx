@@ -86,18 +86,6 @@ const CardWrapper = ({ children, gradient, icon, title }: CardWrapperProps) => (
   </motion.div>
 );
 
-// @ts-ignore
-const getBadgeColor = (type) => {
-  const colors = {
-    DRY: "bg-yellow-100 text-yellow-800",
-    OILY: "bg-green-100 text-green-800",
-    COMBINATION: "bg-blue-100 text-blue-800",
-    SENSITIVE: "bg-red-100 text-red-800",
-    NORMAL: "bg-purple-100 text-purple-800",
-  };
-  // @ts-ignore
-  return colors[type] || "bg-gray-100 text-gray-800";
-};
 
 const SkincareSummary = ({ data }: { data: SkincareFormData }) => {
   return (
@@ -124,9 +112,7 @@ const SkincareSummary = ({ data }: { data: SkincareFormData }) => {
             >
               <span className="text-sm text-gray-500">Skin Type</span>
               <motion.div
-                className={`inline-block px-3 py-1 rounded-full mt-1 ${getBadgeColor(
-                  data.appointmentType
-                )}`}
+                className={`inline-block px-3 py-1 rounded-full mt-1 $`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -137,9 +123,7 @@ const SkincareSummary = ({ data }: { data: SkincareFormData }) => {
               <span className="text-sm text-gray-500">Skin Goals</span>
               <div className="flex flex-wrap gap-2 mt-1">
                 <span
-                  className={`px-3 py-1 rounded-full ${getBadgeColor(
-                    data.residentType
-                  )}`}
+                  className={`px-3 py-1 rounded-full`}
                 >
                   {data.residentType}
                 </span>
@@ -190,7 +174,7 @@ const SkincareSummary = ({ data }: { data: SkincareFormData }) => {
               )}
               {data.fatherName && (
                 <div>
-                  <span className="text-sm text-gray-500">Father's Name</span>
+                  <span className="text-sm text-gray-500">Father&apos;s Name</span>
                   <p className="font-medium">{data.fatherName}</p>
                 </div>
               )}
@@ -238,13 +222,13 @@ const SkincareSummary = ({ data }: { data: SkincareFormData }) => {
                 )}
                 {data.fatherName && (
                   <div>
-                    <span className="text-sm text-gray-500">Father's Name</span>
+                    <span className="text-sm text-gray-500">Father&apos;s Name</span>
                     <p className="font-medium">{data.fatherName}</p>
                   </div>
                 )}
                 {data.grandFatherName && (
                   <div>
-                    <span className="text-sm text-gray-500">Grandfather's Name</span>
+                    <span className="text-sm text-gray-500">Grandfather&apos;s Name</span>
                     <p className="font-medium">{data.grandFatherName}</p>
                   </div>
                 )}
@@ -265,13 +249,13 @@ const SkincareSummary = ({ data }: { data: SkincareFormData }) => {
                 )}
                 {data.fatherNameLatin && (
                   <div>
-                    <span className="text-sm text-gray-500">Father's Name (Latin)</span>
+                    <span className="text-sm text-gray-500">Father&apos;s Name (Latin)</span>
                     <p className="font-medium">{data.fatherNameLatin}</p>
                   </div>
                 )}
                 {data.grandFatherNameLatin && (
                   <div>
-                    <span className="text-sm text-gray-500">Grandfather's Name (Latin)</span>
+                    <span className="text-sm text-gray-500">Grandfather&apos;s Name (Latin)</span>
                     <p className="font-medium">{data.grandFatherNameLatin}</p>
                   </div>
                 )}

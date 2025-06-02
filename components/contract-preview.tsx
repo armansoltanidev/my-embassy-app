@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Skeleton } from "./ui/skeleton"
 
 interface ContractPreviewProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formData: Record<string, any>
   className?: string
 }
