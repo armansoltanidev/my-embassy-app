@@ -43,6 +43,7 @@ export const useFormStore = create<FormState>()(
           formData: { ...state.formData, ...data },
         })),
       setFormId: (id) => set({ formId: id }),
+      setPdfUrl: (url) => set({ pdfUrl: url }),
       resetForm: () =>
         set({
           currentStep: 1,

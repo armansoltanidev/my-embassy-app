@@ -24,11 +24,7 @@ export const formatSkincareDataToText = (data: SkincareFormData): string => {
       data.fatherName ? `Father's Name: ${data.fatherName}` : '',
       data.phoneNumber ? `Phone Number: ${data.phoneNumber}` : '',
       data.relativeIdNumber ? `Phone Number: ${data.relativeIdNumber}` : '',
-      data.residentType === "RESIDENT_BOOK" && data.bookNumber ? `Book Number: ${data.bookNumber}` : '',
-      data.residentType === "PASSPORT" && data.passportNumber ? `Passport Number: ${data.passportNumber}` : '',
-      data.residentType === "AMAYESH_CARD" && data.cardNumber ? `Card Number: ${data.cardNumber}` : '',
-      data.residentType === "FAMILIY_PASSPORT" && data.passportNumber ? `Passport Number: ${data.passportNumber}` : '',
-      data.residentType === "FAMILIY_PASSPORT" && data.familyMembers ? `Family Members: ${data.familyMembers}` : '',
+
     ].filter(Boolean).join('\n');
     
     if (personalInfo) {
